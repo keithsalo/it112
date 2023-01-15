@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+
+
+{% block content %}
+<h1 class="title">Fortune Game!</h1>
+
+
+
+<form action="{{ url_for('game')}}" method="post">
+    <label for="name">Enter Name:</label>
+    <input type="text" name="user" id="fname" required>
+    <label for="color">Pick a color:</label>
+    <select name="color" id="color" required>
+        <option name="red">red</option>
+        <option name="yellow">yellow </option>
+        <option name="blue">blue</option>
+        <option name="green">green</option>
+    </select>
+    <label for="number">Pick a number:</label>
+    <select name="number" required>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select>
+    <input type="reset" value="Reset" style="background-color: red; 
+                        color: white" />
+    <button style="background-color: blue; color: white">submit</button>
+</form>
+{% endblock %}
