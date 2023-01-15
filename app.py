@@ -36,7 +36,7 @@ def game():
         colors = request.form.get("color")
         digit = request.form.get("number")
 
-        return (f"Hi {name.capitalize()}, you selected the color  {colors.capitalize()} and the number  {digit}.  You are lucky! Play the Lotto!")
+        return (f"Hi {name}, you selected the color  {colors} and the number  {digit}.  You are lucky! Play the Lotto!")
 
     return render_template('game.html')
 
