@@ -2,3 +2,32 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+
+
+table, td {
+    border: solid 3px #da751d;
+  padding: 5px;
+  background-clip: content-box; /* support: IE9+ */
+  
+  width: 35%;
+  /* height: 50%; */
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#gform {
+    margin-left: 42%;
+    
+}
+
+.ginputs {
+    padding: 30px;
+}
+
+th {
+    background-color: rgb(47, 152, 159);
+}

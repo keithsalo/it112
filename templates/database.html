@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center; color: orangered;">Grocery List</h1>
+    <h1 style="text-align: center;">Grocery List</h1>
 
     {% if items|length < 1 %}
     <h4 style="text-align: center;">There are no Items on the list. Add below</h4>
@@ -30,10 +30,9 @@
         {% endfor %}
     </table>
     {% endif %}
-    <form id="gform" action="/" method="POST">
-        <div class="ginputs"> <input type="text" name="content" id="content">
-            <input type="submit" value="Add Item">
-        </div>
+    <form id="gform" action="/database" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Item">
     </form>
 </div>
 {% endblock %}
