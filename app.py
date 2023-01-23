@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -128,53 +128,17 @@ def game():
 
     return render_template('game.html')
 
-    # database route test
+
+@app.route('/path_of_the_response', methods=['GET'])
+def ReturnJSON():
+    if (request.method == 'GET'):
+        data = {
+            "Modules": 15,
+            "Subject": "Data Structures and Algorithms",
+        }
+
+        return jsonify(data)
 
 
-# @app.route('/database', methods=['POST', 'GET'])
-# def database():
-#     if request.method == 'POST':
-#         item_content = request.form['content']
-#         new_item = Todo(content=item_content)
-
-#         try:
-#             db.session.add(new_item)
-#             db.session.commit()
-#             return redirect('/database')
-
-#         except:
-#             return 'There was an issue adding to list'
-
-#     else:
-#         items = Todo.query.order_by(Todo.date_created).all()
-#         return render_template('database.html', items=items)
-
-
-# @app.route('/database/delete/<int:id>')
-# def delete(id):
-#     item_to_delete = Todo.query.get_or_404(id)
-
-#     try:
-#         db.session.delete(item_to_delete)
-#         db.session.commit()
-#         return redirect('/database')
-#     except:
-#         return 'There was a problem deleting item from list'
-
-
-# @app.route('/database/update/<int:id>', methods=['GET', 'POST'])
-# def update(id):
-#     item = Todo.query.get_or_404(id)
-
-#     if request.method == 'POST':
-#         item.content = request.form['content']
-#         try:
-#             db.session.commit()
-#             return redirect('/database')
-#         except:
-#             return 'There was an issue updating your item'
-#     else:
-#         return render_template('update.html', item=item)
-    # end route test
 if __name__ == "__main__":
     app.run(host="localhost", port=8000, debug=True)
