@@ -3,6 +3,7 @@
         "aname",
         "gameform",
         "ginputs",
+        "jsonify",
         "SQLALCHEMY"
     ]
 }
