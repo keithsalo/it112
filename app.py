@@ -6,12 +6,26 @@ from datetime import datetime
 import requests
 import json
 
-formData = {}
+# formData = {}
+
+
+# convert datetime str to obj a
+def convert(date_time):
+    format = '%b %d %Y %I:%M%p'  # The format
+    datetime_str = datetime.datetime.strptime(date_time, format)
+
+
+# convert datetime str to obj b
+my_date_string = "Mar 11 2011 11:31AM"
+datetime_object = datetime.strptime(my_date_string, '%b %d %Y %I:%M%p')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 with app.app_context():
     db = SQLAlchemy(app)
+
+date_bug_fix = datetime(2012, 3, 3, 10, 10, 10)
 
 
 class Todo(db.Model):
@@ -31,27 +45,6 @@ class Todo(db.Model):
             'date_created': self.date_created
         }
 
-# car class that maps to a db table
-
-
-class Car(db.Model):
-    make = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(50))
-    color = db.Column(db.String(50))
-    year = db.Column(db.Integer)
-
-    def __repr__(self):
-        return '<Car %r>' % self.make
-
-    @property
-    def serialize(self):
-        """Return object data in easily serializable format"""
-        return {
-            'make': self.make,
-            'model': self.model,
-            'color': self.color,
-            'year': self.year
-        }
 
 # API call from all data in  database
 
@@ -64,40 +57,22 @@ def grocery_list():
 # route to add to list in  database
 
 
-# data = {"id": 3, "content": "red", "date_created": 2022-12-12}
-# error
+# API route to add to db
+# add only id and content in postman ex. {"id": 19, "content": "adding item"}
 
 
 @app.post('/api/groceries')
 def add_list():
     data = request.get_json()
 
-    item = Todo(id=data['id'], content=data['content'],
-                date_created=data['date_created'])
-    db.session.add(item)
-    db.session.commit()
-    return jsonify({"status": "success"})
-
-    # try:
-    #     item = Todo(id=data['id'], content=data['content'],
-    #                 date_created=data['date_created'])
-    #     db.session.add(item)
-    #     db.session.commit()
-    #     return jsonify({"status": "success"})
-    # except:
-    #     return app.response_class(response={"status": "failure"}, status=500, mimetype='application/json')
-
-
-# if request.method == 'POST':
-#        id = int(request.get_json['id'])
-#        content = request.get_json['content']
-#        date_created = request.get_json['date_created']
-#        item = Todo(id=id,
-#                    content=content,
-#                    date_created=date_created)
-#        db.session.add(item)
-#        db.session.commit()
-# error_end
+    try:
+        content = request.get_json()['content']
+        new_item = Todo(content=content)
+        db.session.add(new_item)
+        db.session.commit()
+        return jsonify({"status": "success"})
+    except:
+        return app.response_class(response={"status": "failure"}, status=500, mimetype='application/json')
 
 
 # @app.route('/')
